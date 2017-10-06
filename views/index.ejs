@@ -12,10 +12,10 @@
       <input type="submit" value="OK">
   </form>
     <h3> <%= email %>@<%= domain %></h3>
-    <ul>
+    <ul style="width: 600px;">
       <% for(var i=0; i<first.length; i++) { %>
         <li>
-          <%= first[i]%>, <%= last[i]%> &nbsp; &nbsp; &nbsp; <%= rEmails[i]%>
+          <%= first[i]%>, <%= last[i]%> <span style="float: right;"><%= rEmails[i]%> </span> 
         </li>
     <% } %>
     </ul>

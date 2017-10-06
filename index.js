@@ -10,7 +10,7 @@ var app = express()
 
 var companyName = "Asana"
 
-const googleKey = 'AIzaSyAPRwsIzko_9n3VffTHeGhbq3dz5AGc8CA'
+const googleKey = 'AIzaSyALzCTdxrFd0AhjSv8AMj7S8KuAUXbHXRA'
 const googlecx = '013565610204912550067:frat_jzztpg'
 const googleQ = "site:linkedin.com (inurl:in OR inurl:pub) -inurl:dir -inurl:job -inurl:jobs -inurl:jobs2 -intitle:profiles -inurl:groups 'University Recruiter at ";
 const googleSearch = "https://www.googleapis.com/customsearch/v1?key="+googleKey+"&cx="+googlecx+"&q="
@@ -27,7 +27,7 @@ app.get('/', function(req, res){
     if(typeof(req.query.cname) != 'undefined'){
         companyName = req.query.cname
     }
-    
+    console.log(googleSearch + googleQ + companyName)
     axios.get(googleSearch + googleQ + companyName)
         .then(function(response){
             var i=0;
@@ -37,20 +37,20 @@ app.get('/', function(req, res){
             })
             var fRec = []
             var lRec = []
-            for(var x=0; x<recruiters.length; x++){
-                fRec.push((recruiters[x].split('|')[0]).split(' ')[0])
-                lRec.push((recruiters[x].split('|')[0]).split(' ')[1])
+            for(var i=0; i<recruiters.length; i++){
+                fRec.push((recruiters[i].split('|')[0]).split(' ')[0])
+                lRec.push((recruiters[i].split('|')[0]).split(' ')[1])
             }
-            var email;
+
             axios.get(hunterIo1 + companyName + hunterIo2)
                 .then(function(response){
-                email = response.data.data.pattern
+                var email = response.data.data.pattern
                 domain = response.data.data.domain
                 rEmails = helpers.concatEmails(fRec, lRec, email, domain)
 
                 res.render('index', {first: fRec, last: lRec, email: email, domain: domain, rEmails:rEmails})
-            })
-        })
+            }).catch(()=> res.render('404'))
+        }).catch(()=> res.render('404'))
 })
 
 app.listen(6969)
