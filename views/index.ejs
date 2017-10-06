@@ -11,11 +11,11 @@
       <input id="team_name" type="text" name="cname" placeholder="Asana">
       <input type="submit" value="OK">
   </form>
-    <h3> <%= email %>@ <%= domain %></h3>
+    <h3> <%= email %>@<%= domain %></h3>
     <ul>
       <% for(var i=0; i<first.length; i++) { %>
         <li>
-          <%= first[i]%>, <%= last[i]%>
+          <%= first[i]%>, <%= last[i]%> &nbsp; &nbsp; &nbsp; <%= rEmails[i]%>
         </li>
     <% } %>
     </ul>
