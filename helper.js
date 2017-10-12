@@ -38,7 +38,10 @@ module.exports = {
             }
         }
 
-        console.log(rEmails)
         return rEmails
+    },
+
+    requestHelper: function(){
+        
     }
 }
