@@ -1,3 +1,12 @@
+const axios = require('axios')
+require('dotenv').config()
+
+const googleQ = "site:linkedin.com (inurl:in OR inurl:pub) -inurl:dir -inurl:job -inurl:jobs -inurl:jobs2 -intitle:profiles -inurl:groups 'University Recruiter at ";
+const googleSearch = "https://www.googleapis.com/customsearch/v1?key="+ process.env.GK +"&cx="+ process.env.GCX +"&q="
+
+const hunterIo1 = 'https://api.hunter.io/v2/domain-search?domain='
+const hunterIo2 = '.com&api_key='+process.env.HK
+
 module.exports = {
     concatEmails: function(first, last, pattern, domain){
         var rEmails = []
@@ -38,7 +47,6 @@ module.exports = {
             }
         }
 
-        console.log(rEmails)
         return rEmails
     }
 }
