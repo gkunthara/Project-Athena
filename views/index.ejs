@@ -1,43 +1,39 @@
 <% include ./partials/head %>
 
-<div class="row align-center">
-  <div class="col col-6">
+<div class="container">
+  <div class="six columns offset-by-three">
+  <h3 align="center">Project Athena</h3>
 
-    <div class="row align-center">
-      <h2>Project Athena</h2>
+
+  <form class="form" action="/" method="get">
+    <div class="nine columns">
+      <input id="team_name" class="u-full-width" type="text" name="cname" placeholder="Search Company">
     </div>
-
-    <form class="form" action="/" method="get">
-      <div class="form-item">
-          <!-- <label>Company</label> -->
-          <div class="append w200">
-              <input id="team_name" class="search" type="text" name="cname" placeholder="Search Company">
-              <button type="submit" class="button outline">Go</button>
-          </div>
-      </div>
+    <div class="three columns">
+      <button type="submit" class="u-full-width">Submit</button>
+    </div>
+  </form>
 
 
-    </form>
-      <!-- <h3><%= email %>@<%= domain %></h3> -->
-      <table class="striped bordered" >
-        <thead>
-          <th>Name</th>
-          <th>Last</th>
-          <th>Email</th>
-        </thead>
-        <% for(var i=0; i<first.length; i++) { %>
-          <tr>
-            <td><%= first[i]%></td>
-            <td><%= last[i]%></td>
-            <td>
-              <%= rEmails[i]%>
-            </td>
-          </tr>
-          <% } %>
-      </table>
+  <table class="u-full-width">
+    <thead>
+      <th>Name</th>
+      <th>Last</th>
+      <th>Email</th>
+    </thead>
+    <tbody>
+      <% for(var i=0; i<recruiter.length; i++) { %>
+        <tr>
+          <td><%= recruiter[i].first%></td>
+          <td><%= recruiter[i].last%></td>
+          <td><%= recruiter[i].email%></td>
+        </tr>
+        <% } %>
+    </tbody>
+  </table>
+
   </div>
+  <div class="one-third column"></div>
 </div>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/kube/6.5.2/js/kube.min.js"></script>
-  </body>
 
-  </html>
+<% include ./partials/footer %>

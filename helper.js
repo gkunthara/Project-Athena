@@ -8,45 +8,96 @@ const hunterIo1 = 'https://api.hunter.io/v2/domain-search?domain='
 const hunterIo2 = '.com&api_key='+process.env.HK
 
 module.exports = {
-    concatEmails: function(first, last, pattern, domain){
-        var rEmails = []
-        var i =0;
-        while(first[i] != null){
+    concatEmails: function(recruiter, pattern, domain){
+        let i=0;
+        let rEmails = []
+
+        while(i < recruiter.length){
             switch(pattern) {
                 case '{f}{last}':
-                    rEmails.push((first[i].charAt(0)+last[i]+'@'+domain).toLowerCase())
+                    // return ((recruiter.first.charAt(0)+recruiter.last+'@'+domain).toLowerCase())
+                    rEmails.push((recruiter[i].first.charAt(0)+recruiter[i].last+'@'+domain).toLowerCase())
                     i++;
-                    break;
+                    break
+
                 case '{first}{last}':
-                    rEmails.push((first[i]+last[i]+'@'+domain).toLowerCase())
+                    rEmails.push((recruiter[i].first+recruiter[i].last+'@'+domain).toLowerCase())
                     i++;
-                    break;
+                    break
+
                 case '{first}.{last}':
-                    rEmails.push((first[i]+'.'+last[i]+'@'+domain).toLowerCase())
+                    // return ((recruiter.first+'.'+recruiter.last+'@'+domain).toLowerCase())
+                    rEmails.push((recruiter[i].first+'.'+recruiter[i].last+'@'+domain).toLowerCase())
                     i++
-                    break;
+                    break
+
                 case '{first}{l}':
-                    rEmails.push((first[i]+last[i].charAt(0)+'@'+domain).toLowerCase())
+                    // return ((recruiter.first+recruiter.last.charAt(0)+'@'+domain).toLowerCase())
+                    rEmails.push((recruiter[i].first+recruiter[i].last.charAt(0)+'@'+domain).toLowerCase())
                     i++
                     break;
+
                 case '{last}{first}':
-                    rEmails.push((last[i]+first[i]+'@'+domain).toLowerCase())
+                    // return ((recruiter.last+recruiter.first+'@'+domain).toLowerCase())
+                    rEmails.push((recruiter[i].last+recruiter[i].first+'@'+domain).toLowerCase())
                     i++
-                    break;
+                    break
+
                 case '{first}':
-                    rEmails.push((first[i]+'@'+domain).toLowerCase())
+                    // return ((recruiter.first+'@'+domain).toLowerCase())
+                    rEmails.push((recruiter[i].first+'@'+domain).toLowerCase())
                     i++
-                    break;
+                    break
+
                 case '{last}':
-                    rEmails.push((last[i]+'@'+domain).toLowerCase())
+                    rEmails.push((recruiter[i].last+'@'+domain).toLowerCase())
                     i++
-                    break;
+                    break
+
                 default:
-                    rEmails.push((first[i]+last[i]+'@'+domain).toLowerCase())
+                    // return ((recruiter.first+recruiter.last+'@'+domain).toLowerCase())
+                    rEmails.push((recruiter[i].first+recruiter[i].last+'@'+domain).toLowerCase())
                     i++
             }
         }
-
         return rEmails
+    },
+    getRecruiters(response){
+        let tmpRecruiters = []
+        let recruiters = []
+        let i=0
+
+        Object.keys(response.data.items).forEach(function(key){
+            tmpRecruiters[i] = response.data.items[key].title
+            i++;
+        })
+
+        for(let i=0; i<tmpRecruiters.length; i++){
+            let recruiter = {
+                first:'',
+                last:'',
+                email:''
+            }
+
+            recruiter.first = ((tmpRecruiters[i].split('|')[0]).split(' ')[0])
+            recruiter.last = ((tmpRecruiters[i].split('|')[0]).split(' ')[1])
+            recruiters.push(recruiter)
+        }
+
+        return recruiters
+    },
+    getRecruiterEmails(response, recArr){
+        let em = response.data.data.pattern
+        let domain = response.data.data.domain
+
+        rEmails = module.exports.concatEmails(recArr, em, domain)
+
+        if(rEmails !=[]){
+            for(i=0; i<recArr.length; i++){
+                recArr[i].email = rEmails[i]
+            }
+        }
+
+        return recArr
     }
 }
