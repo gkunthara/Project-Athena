@@ -1,18 +1,39 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>fart</title>
-  </head>
-  <body>
-    <h1>rFinder</h1>
-    <h3> <%= email %>@ <%= domain %></h3>
-    <ul>
-      <% for(var i=0; i<first.length; i++) { %>
-        <li>
-          <%= first[i]%>, <%= last[i]%>
-        </li>
-    <% } %>
-    </ul>
-  </body>
-</html>
+<% include ./partials/head %>
+
+<div class="container">
+  <div class="six columns offset-by-three">
+  <h3 align="center">Project Athena</h3>
+
+
+  <form class="form" action="/" method="get">
+    <div class="nine columns">
+      <input id="team_name" class="u-full-width" type="text" name="cname" placeholder="Search Company">
+    </div>
+    <div class="three columns">
+      <button type="submit" class="u-full-width">Submit</button>
+    </div>
+  </form>
+
+
+  <table class="u-full-width">
+    <thead>
+      <th>Name</th>
+      <th>Last</th>
+      <th>Email</th>
+    </thead>
+    <tbody>
+      <% for(var i=0; i<recruiter.length; i++) { %>
+        <tr>
+          <td><%= recruiter[i].first%></td>
+          <td><%= recruiter[i].last%></td>
+          <td><%= recruiter[i].email%></td>
+        </tr>
+        <% } %>
+    </tbody>
+  </table>
+
+  </div>
+  <div class="one-third column"></div>
+</div>
+
+<% include ./partials/footer %>

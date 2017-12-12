@@ -4,14 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"node index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "async-request": "^1.2.0",
-    "axios": "^0.16.2",
+    "axios": "0.16.2",
     "body-parser": "^1.18.2",
+    "dotenv": "4.0.0",
     "ejs": "^2.5.7",
     "express": "^4.16.1",
     "google-search": "0.0.5",
